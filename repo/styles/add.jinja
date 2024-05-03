@@ -9,37 +9,37 @@
     <meta name="description" content="{{repo_desc}}">
     <meta property="og:title" content="{{repo_name}}">
     <meta property="og:description" content="{{repo_desc}}">
-    <meta property="og:image" content="//{{repo_url}}/CydiaIcon.png">
+    <meta property="og:image" content="{{repo_url}}/CydiaIcon.png">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="{{repo_name}}">
     <meta name="twitter:description" content="{{repo_desc}}">
-    <meta name="twitter:image" content="//{{repo_url}}/CydiaIcon.png">
+    <meta name="twitter:image" content="{{repo_url}}/CydiaIcon.png">
     <meta name="theme-color" content="{{tint_color}}">
 </head>
 <body>
     <div class="body">
         <div id="header">
             <h1 class="left_float">{{repo_name}}</h1>
-            <button class="right_float add_repo tint" onclick="location.href='//{{repo_url}}/'" href="cydia://url///cydia.saurik.com/api/share#?source=//{{repo_url}}">&gt;</button>
+            <button class="right_float add_repo tint" onclick="location.href='{{repo_url}}/'">&gt;</button>
         </div>
         
         <h2 class="add_repo_title">Add repository to:</h2>
         
         <div class="add_repo_container">
         {# Thanks to ios repo updates for the very nice website & for the images #}
-            <a class="add_repo_button">
+            <a class="add_repo_button" href="sileo://source/{{repo_url}}">
                 <img src="https://api.ios-repo-updates.com/images/apt/sileo.png">
                 <p>Sileo</p>
             </a>
-            <a class="add_repo_button">
+            <a class="add_repo_button" href="cydia://url/https://cydia.saurik.com/api/share#?source={{repo_url}}">
                 <img src="https://api.ios-repo-updates.com/images/apt/cydia.png">
                 <p>Cydia</p>
             </a>
-            <a class="add_repo_button">
+            <a class="add_repo_button"  href="zbra://sources/add/{{repo_url}}">
                 <img src="https://api.ios-repo-updates.com/images/apt/zebra.png">
                 <p>Zebra</p>
             </a>
-            <a class="add_repo_button">
+            <a class="add_repo_button" href="installer://add/repo={{repo_url}}">
                 <img src="https://api.ios-repo-updates.com/images/apt/installer.png">
                 <p>Installer</p>
             </a>

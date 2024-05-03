@@ -1,6 +1,66 @@
 # Aurixa
 A heavily Silica inspired tool to make repos for your iOS packages.
 
+# Usage
+- Create a "packages" folder in repo/ if it's not already there
+- inside, create a folder for every package you have
+- place the files you want like specified in the file "packages" file structure below (as specified, the required files will be created when you run the program anyways and the icons/banners/screenshots are optional, you only need to provide some debs.)
+- Run the main file (python src/main.py) and follow the instructions
+
+# File structures
+### Whole repo
+```bash
+.
+└── repo
+    ├── packages
+    │   └── <see below>
+    ├── settings.json
+    └── styles
+        ├── 404.jinja
+        ├── add.jinja
+        ├── default.png
+        ├── default_tweak_assets
+        │   ├── banner.png
+        │   └── icon.png
+        ├── default.xcf
+        ├── index.css
+        ├── index.jinja
+        ├── index.js
+        └── tweak.jinja
+```
+### Packages
+```bash
+packages
+├── <Package name>
+│   ├── <package v1.0>.deb
+│   ├── <package v1.1>.deb
+│   ├── <package v2.0>.deb
+│   └── meta
+│       ├── banner.png (optional)
+│       ├── changelog.json (created on run)
+│       ├── description.md (created on run)
+│       ├── icon.png (optional)
+│       ├── info.json (created on run)
+│       └── screenshots (optional)
+│           ├── 01.png
+│           ├── 02.png
+│           ├── 03.png
+│           └── 04.png
+└── <Other package>...
+
+```
+
+# Github Pages
+- Install `gh` and `git` on your pc
+- login to github by running `gh auth login`
+- set your git name by running `git config --global user.name "YOUR NAME"`
+- set your git EMAIL by running `git config --global user.name "YOUR EMAIL@example.com"`
+- Open github in your browser & create a new repo
+- Copy its url (ending by .git) using the big green "Code" button
+- If not already setup, run the setup, otherwise paste that url between quotes in the repo/settings.json file at the "git_repo" key (eg: `"git_repo": None,` to `"git_repo": "https://github.com/Nixuge/cydia-repo.git",`)
+- Should be all good. If you have issues, make sure you're logged in to github on your pc (using the `gh` command), that you have your git name/email set (check google)
+
+
 ## Why not Silica?
 While Silica itself works fine from an user perspective (w some rough edges but it's fine), its code structure is pretty horrible.
 
@@ -21,6 +81,7 @@ For now most assets under repo/styles are, altho modified, from Silica.
 - (unsure) like Silica, add support to replace arbitrary properties in the control file from the json
 - (unsure) like Silica, allow adding DEBIAN scripts (postinst, prerm, ...)
 - write more detailed README
-- auto git push
 - (unsure) nicer actual CLI
 - Better error handling in some parts (eg loading the repo config)
+- Better setup system (allow questions to interact w previous ones, eg the "auto git" one, if set ask if want a prompt or auto commit (for now prompy only))
+- (unsure) commit repo that lists changes.

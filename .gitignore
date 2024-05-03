@@ -5,3 +5,4 @@ venv/
 logs/
 www/
 .setup_done
+tmp/

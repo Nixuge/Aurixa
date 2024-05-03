@@ -4,27 +4,27 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=0">
     <title>{{tweak.control.Name}}</title>
-    <link rel="stylesheet" type="text/css" href="//{{repo_url}}/web/index.css">
+    <link rel="stylesheet" type="text/css" href="{{repo_url}}/web/index.css">
     <style>a, .tint, .table-btn:after {color: {{tint_color}}} .active {color: {{tint_color}};border-bottom: 2px solid {{tint_color}};}</style>
-    <script src="//{{repo_url}}/web/index.js"></script>
+    <script src="{{repo_url}}/web/index.js"></script>
     <meta name="description" content="A package by {{tweak.control.Author}} for {{tweak.info.version_range}}.">
     <meta property="og:title" content="{{tweak.control.Name}}">
     <meta property="og:description" content="A package by {{tweak.control.Author}} for {{tweak.info.version_range}}.">
-    <meta property="og:image" content="//{{repo_url}}/assets/{{tweak.control.Package}}/banner.png">
+    <meta property="og:image" content="{{repo_url}}/assets/{{tweak.control.Package}}/banner.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{tweak.control.Name}}">
     <meta name="twitter:description" content="A package by {{tweak.control.Author}} for {{tweak.info.version_range}}.">
-    <meta name="twitter:image" content="//{{repo_url}}/assets/{{tweak.control.Package}}/banner.png">
+    <meta name="twitter:image" content="{{repo_url}}/assets/{{tweak.control.Package}}/banner.png">
     <meta name="theme-color" content="{{ tint_color }}">
 </head>
 <body>
     <div class="body">
-        <div style="background-image: url(//{{repo_url}}/assets/{{tweak.control.Package}}/banner.png)" class="banner_underlay">
+        <div style="background-image: url({{repo_url}}/assets/{{tweak.control.Package}}/banner.png)" class="banner_underlay">
             {# Note: this back button may cause issues if the thing is rendered in a package manager. #}
-            <button onclick="location.href='//{{repo_url}}/'" class="banner_back_button">&gt;</button>
+            <button onclick="location.href='{{repo_url}}/'" class="banner_back_button">&gt;</button>
         </div>
         <div class="package package_head">
-            <img src="//{{repo_url}}/assets/{{tweak.control.Package}}/icon.png">
+            <img src="{{repo_url}}/assets/{{tweak.control.Package}}/icon.png">
             <div class="package_info">
                 <h1 class="package_name">{{tweak.control.Name}}</h1>
                 <p class="package_caption">{{tweak.control.Author}}</p>
@@ -39,7 +39,7 @@
             {% if tweak.screenshots %}
             <div class="scroll_view">
                 {% for screenshot in tweak.screenshots %}
-                <img class="img_card" src="//{{repo_url}}/assets/{{tweak.control.Package}}/screenshots/{{screenshot}}">
+                <img class="img_card" src="{{repo_url}}/assets/{{tweak.control.Package}}/screenshots/{{screenshot}}">
                 {% endfor %}
             </div>
             {% endif %}

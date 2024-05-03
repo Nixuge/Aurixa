@@ -54,6 +54,16 @@ def valid_tint(tint: str) -> str:
 
     return tint
 
+def none_or_repo(repo: str) -> str | None:
+    if repo == "":
+        return None
+    
+    if not repo.endswith(".git"):
+        print("Provided url doesn't end with '.git'. Make sure you copy the url under the green 'code' button on your repo.")
+        return BAD_INPUT
+    
+    return repo
+
 def to_bool(input: str) -> bool:
     return "y" in input.lower()
 
@@ -63,7 +73,7 @@ OPTIONS = [
     Option("Please enter the tint you want for your repo (in hexadecimal, eg #FC4C02): ", "tint", valid_tint),
     Option("Will your domain have HTTPS enabled? (y/n): ", "https", to_bool),
     Option("What domain are you going to host the repo on ? (don't include https://, just the domain): ", "cname"),
-    Option("Do you want to automatically push the repo to a Git server when run? (y/n): ", "auto_git", to_bool),
+    Option("Do you want to automatically push the repo to a Git server when run? If yes, provide the url. Otherwise, leave blank. See the README for more detailed info about how to set up: ", "git_repo", none_or_repo),
     Option("Do you want to sign your repository with GPG? : ", "enable_gpg", to_bool),
     Option("What's your maintainer name: ", "name", None, "maintainer"),
     Option("What's your maintainer email: ", "email", None, "maintainer"),

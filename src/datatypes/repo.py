@@ -12,6 +12,7 @@ import jinja2
 from datatypes.static.repo_settings import RepoSettings
 from datatypes.tweak import Tweak
 from utils.hash import hash_file_all_algorithms
+from utils.input import log_input
 
 
 class Repo:
@@ -42,7 +43,9 @@ class Repo:
         return featured
 
     def build_entire_repo(self):
-        # I think not clearing the dir first is fine?
+        if RepoSettings.git_repo:
+            self.init_git()
+        
         self.setup_folders()
         self.copy_static_files()
         self.build_cname()
@@ -62,9 +65,32 @@ class Repo:
         self.build_release_file()
         if RepoSettings.enable_gpg:
             self.sign_release_file()
-            
-        # TODO 2: GPG Support (Release.gpg)
-        # TODO 3: api thing?
+        
+        if RepoSettings.git_repo:
+            self.prompt_commit()
+        
+        # TODO: api thing?
+
+    def init_git(self):
+        # Note: not sure if there's a better way to do it, basically:
+        # - git clone (if not exists) or pull
+        # - remove everything except .git
+        # then at the end see "self.prompt_commit()"
+        if not os.path.exists(f"{self.bf}/.git"):
+            if os.path.exists(self.bf):
+                shutil.rmtree(self.bf)
+            os.system(f"git clone {RepoSettings.git_repo} {self.bf}")
+        else:
+            os.system(f"cd {self.bf} && git pull")
+        
+        for file in os.listdir(self.bf):
+            if file == ".git": continue
+            path = f"{self.bf}/{file}"
+            if os.path.isdir(path):
+                shutil.rmtree(path)
+            else:
+                os.remove(path)
+
 
     def setup_folders(self):
         # Note: could prolly organize this abit better
@@ -100,7 +126,7 @@ class Repo:
             repo_name = RepoSettings.name,
             tint_color = RepoSettings.tint,
             repo_desc = RepoSettings.description,
-            repo_url = RepoSettings.cname,
+            repo_url = RepoSettings.get_full_domain(),
             featured_tweaks = [t.to_dictionary() for t in self.featured_tweaks],
             tweaks = [t.to_dictionary() for t in self.tweaks],
             aurixa_version = RepoSettings.aurixa_version,
@@ -198,3 +224,15 @@ class Repo:
         
         key = "Aurixa MobileAPT Repository"
         subprocess.run(f"gpg -abs -u \"{key}\" -o {gpg_file} {release_file}", shell=True, check=True)
+    
+    def prompt_commit(self):
+        if not "y" in log_input("Do you want to commit the changes to your repo?"):
+            return
+
+        commit_message = log_input("Enter your commit message (leave empty for 'Updated repo.'): ").strip()
+        if commit_message == "":
+            commit_message = "[Aurixa] Updated repo."
+        else:
+            commit_message = "[Aurixa] " + commit_message
+        
+        os.system(f"cd {RepoSettings.build_folder} && git add . && git commit -m \"{commit_message}\" && git push")
