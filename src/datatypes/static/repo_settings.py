@@ -13,6 +13,7 @@ class RepoSettings:
     https: bool
     cname: str
     auto_git: bool
+    enable_gpg: bool
     maintainer_name: str
     maintainer_email: str
     build_folder: str
@@ -31,6 +32,7 @@ class RepoSettings:
         cls.cname = data.get("cname")
 
         cls.auto_git = data.get("auto_git", False)
+        cls.enable_gpg = data.get("enable_gpg", False)
 
         maintainer_part = data.get("maintainer")
         cls.maintainer_name = maintainer_part.get("name")

@@ -5,6 +5,7 @@ import lzma
 import os
 import random
 import shutil
+import subprocess
 from typing import Callable
 
 import jinja2
@@ -59,6 +60,9 @@ class Repo:
         self.compress_packages_file()
 
         self.build_release_file()
+        if RepoSettings.enable_gpg:
+            self.sign_release_file()
+            
         # TODO 2: GPG Support (Release.gpg)
         # TODO 3: api thing?
 
@@ -184,3 +188,8 @@ class Repo:
     def build_release_file(self):
         with open( f"{RepoSettings.build_folder}/Release", 'w') as f:
             f.write(RepoSettings.get_release_string(self._get_hash_sizes_packages_files()))
+    
+    def sign_release_file(self):
+        key = "Aurixa MobileAPT Repository"
+        # subprocess.run(f"gpg -abs -u {key} -o Release.gpg Release", shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
+        subprocess.run(f"gpg -abs -u \"{key}\" -o {self.bf}/Release.gpg {self.bf}/Release", shell=True, check=True)

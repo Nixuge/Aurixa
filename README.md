@@ -21,4 +21,4 @@ For now most assets under repo/styles are, altho modified, from Silica.
 - (unsure) like Silica, add support to replace arbitrary properties in the control file from the json
 - (unsure) like Silica, allow adding DEBIAN scripts (postinst, prerm, ...)
 - write more detailed README
-- possibly rework the folders a bit
+- auto git push

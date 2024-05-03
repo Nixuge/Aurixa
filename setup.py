@@ -68,6 +68,7 @@ OPTIONS = [
     Option("Will your domain have HTTPS enabled? (y/n): ", "https", to_bool),
     Option("What domain are you going to host the repo on ? (don't include https://, just the domain): ", "cname"),
     Option("Do you want to automatically push the repo to a Git server when run? (y/n): ", "auto_git", to_bool),
+    Option("Do you want to sign your repository with GPG? : ", "enable_gpg", to_bool),
     Option("What's your maintainer name: ", "name", None, "maintainer"),
     Option("What's your maintainer email: ", "email", None, "maintainer"),
 ]
@@ -93,9 +94,10 @@ def setup():
     
     if not os.path.isdir("repo/packages"): os.makedirs("repo/packages")
 
-    # print("Generating GPG keys")
-    # os.system("gpg --batch --gen-key util/gpg.batchgen")
-    # print("Done generating GPG keys")
+    if all_opts.get("enable_gpg"):
+        print("Generating GPG keys")
+        os.system("gpg --batch --gen-key src/gpg/gpg.batchgen")
+        print("Done generating GPG keys")
 
 
 if __name__ == "__main__":
