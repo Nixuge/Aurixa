@@ -1,0 +1,7 @@
+repo/settings.json
+repo/packages/
+venv/
+*.pyc
+logs/
+www/
+.setup_done

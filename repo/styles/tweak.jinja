@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=0">
+    <title>{{tweak.control.Name}}</title>
+    <link rel="stylesheet" type="text/css" href="//{{repo_url}}/web/index.css">
+    <style>a, .tint, .table-btn:after {color: {{tint_color}}} .active {color: {{tint_color}};border-bottom: 2px solid {{tint_color}};}</style>
+    <script src="//{{repo_url}}/web/index.js"></script>
+    <meta name="description" content="A package by {{tweak.control.Author}} for {{tweak.info.version_range}}.">
+    <meta property="og:title" content="{{tweak.control.Name}}">
+    <meta property="og:description" content="A package by {{tweak.control.Author}} for {{tweak.info.version_range}}.">
+    <meta property="og:image" content="//{{repo_url}}/assets/{{tweak.control.Package}}/banner.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{tweak.control.Name}}">
+    <meta name="twitter:description" content="A package by {{tweak.control.Author}} for {{tweak.info.version_range}}.">
+    <meta name="twitter:image" content="//{{repo_url}}/assets/{{tweak.control.Package}}/banner.png">
+    <meta name="theme-color" content="{{ tint_color }}">
+</head>
+<body>
+    <div class="body">
+        <div style="background-image: url(//{{repo_url}}/assets/{{tweak.control.Package}}/banner.png)" class="banner_underlay">
+            {# Note: this back button may cause issues if the thing is rendered in a package manager. #}
+            <button onclick="location.href='//{{repo_url}}/'" class="banner_back_button">&gt;</button>
+        </div>
+        <div class="package package_head">
+            <img src="//{{repo_url}}/assets/{{tweak.control.Package}}/icon.png">
+            <div class="package_info">
+                <h1 class="package_name">{{tweak.control.Name}}</h1>
+                <p class="package_caption">{{tweak.control.Author}}</p>
+            </div>
+        </div>
+        <div class="nav">
+            <div class="nav_btn active tweak_info_btn" onclick="swap('.changelog','.tweak_info');">Details</div>
+            <div class="nav_btn changelog_btn" onclick="swap('.tweak_info','.changelog');">Changelog</div>
+        </div>
+        <div class="tweak_info">
+            <p class="compatibility"><b>Compatibility:</b> iOS {{tweak.info.version_range}}.</p>
+            {% if tweak.screenshots %}
+            <div class="scroll_view">
+                {% for screenshot in tweak.screenshots %}
+                <img class="img_card" src="//{{repo_url}}/assets/{{tweak.control.Package}}/screenshots/{{screenshot}}">
+                {% endfor %}
+            </div>
+            {% endif %}
+            <div class="md_view">
+                <p>{{full_description}}</p>
+            </div>
+            <h3>Information</h3>
+            <div class="table">
+                <div class="cell">
+                    <div class="cell_title">Developer</div>
+                    <div class="cell_text">{{tweak.control.Author}}</div>
+                    <br><br>
+                </div>
+                <div class="cell">
+                    <div class="cell_title">Version</div>
+                    <div class="cell_text">{{tweak.control.Version}}</div>
+                    <br><br>
+                </div>
+                <div class="cell">
+                    <div class="cell_title">Compatibility</div>
+                    <div class="cell_text">{{tweak.info.version_range}}</div>
+                    <br><br>
+                </div>
+                <div class="cell">
+                    <div class="cell_title">Section</div>
+                    <div class="cell_text">{{tweak.control.Section}}</div>
+                    <br><br>
+                </div>
+            </div>
+            {% if tweak.info.source %}
+            <a href="{{tweak.info.source}}" class="table-btn">
+                <div>View Source Code</div>
+            </a>
+            {% endif %}
+        </div>
+        <div class="changelog">
+            {% if tweak.changelog %}
+            
+            {% for entry in tweak.changelog %}
+            <div class="changelog_entry">
+                <h4>{{entry.version}}</h4>
+                <div class="md_view"><p>{{entry.changes}}</p></div>
+            </div>
+            {% endfor %}
+            {% else %}
+                <p>No changelog available</p> {# Untested as there should always be a changelog #}
+            {% endif %}
+        </div>
+        <div class="caption center footer">Aurixa v{{aurixa_version}} - Updated {{run_date}}</div>
+    </div>
+</body>
+<script>compatible("{{tweak.info.min_ios}}","{{tweak.info.max_ios}}","{{tweak.info.version_range}}");externalize()</script>
+</html>

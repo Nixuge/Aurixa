@@ -1,0 +1,6 @@
+# pyjson5
+packaging
+jinja2
+arpy
+mistune
+pillow
