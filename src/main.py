@@ -1,14 +1,24 @@
-import logging
-from utils.logger import load_proper_logger
-load_proper_logger(logging.getLogger(), True)
+# TODO: add option to regen GPG keys (prolly)
 
-from parsers.parse_all_packages import discover_packages
-from datatypes.repo import Repo
+from update import update_tweaks
 
-repo = Repo(discover_packages()) 
+def main():
+    logging.info("Welcome to Aurixa's CLI")
+    if not is_setup():
+        logging.info("Looks like you haven't done the setup for your repo. Starting it.")
+        setup()
+        if "y" not in log_input("Do you want to process your tweaks now? (y/n): ").lower():
+            return
 
-# Could be moved to Repo().__init__() w a flag eg "perform_tweak_updates"
-for tweak in repo.tweaks:
-    tweak.update_changelog_file()
+    update_tweaks()
 
-repo.build_entire_repo()
+if __name__ == "__main__":
+    import logging
+    from setup import is_setup, setup
+    from utils.input import log_input
+    from utils.logger import load_proper_logger
+    load_proper_logger(logging.getLogger(), True)
+
+    main()
+else:
+    print("Please run this as a standalone, don't import it.")

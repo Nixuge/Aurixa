@@ -1,11 +1,7 @@
 from dataclasses import dataclass, field
 import json
 import os
-from typing import Callable, Literal
-
-BYPASS_SETUP_CHECK = False
-
-
+from typing import Callable
 
 BAD_INPUT = "BAD_INPUT"
 @dataclass
@@ -73,13 +69,12 @@ OPTIONS = [
     Option("What's your maintainer email: ", "email", None, "maintainer"),
 ]
 
+def is_setup():
+    # Could also use settings.json directly
+    return os.path.exists(".setup_done")
+
 def setup():
     print("Aurixa setup")
-    if not BYPASS_SETUP_CHECK and os.path.exists(".setup_done") :
-        print("Oops, looks like the setup has already been launched.")
-        print("If you want to run it again, delete the \".setup_done\" file")
-        print("Or open setup.py and set 'BYPASS_SETUP_CHECK' to 'True'")
-        return
     
     all_opts = {}
     for opt in OPTIONS:
@@ -96,11 +91,8 @@ def setup():
 
     if all_opts.get("enable_gpg"):
         print("Generating GPG keys")
-        os.system("gpg --batch --gen-key src/gpg/gpg.batchgen")
+        gen_gpg()
         print("Done generating GPG keys")
 
-
-if __name__ == "__main__":
-    setup()
-else:
-    print("Please run this file (setup.py) alone, don't import it from another file.")
+def gen_gpg():
+    os.system("gpg --batch --gen-key src/gpg/gpg.batchgen")

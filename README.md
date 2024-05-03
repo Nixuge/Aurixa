@@ -22,3 +22,5 @@ For now most assets under repo/styles are, altho modified, from Silica.
 - (unsure) like Silica, allow adding DEBIAN scripts (postinst, prerm, ...)
 - write more detailed README
 - auto git push
+- (unsure) nicer actual CLI
+- Better error handling in some parts (eg loading the repo config)

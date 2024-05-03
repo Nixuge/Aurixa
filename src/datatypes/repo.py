@@ -190,6 +190,11 @@ class Repo:
             f.write(RepoSettings.get_release_string(self._get_hash_sizes_packages_files()))
     
     def sign_release_file(self):
+        release_file = f"{self.bf}/Release"
+        gpg_file = f"{release_file}.gpg"
+
+        if os.path.exists(gpg_file):
+            os.remove(gpg_file)
+        
         key = "Aurixa MobileAPT Repository"
-        # subprocess.run(f"gpg -abs -u {key} -o Release.gpg Release", shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
-        subprocess.run(f"gpg -abs -u \"{key}\" -o {self.bf}/Release.gpg {self.bf}/Release", shell=True, check=True)
+        subprocess.run(f"gpg -abs -u \"{key}\" -o {gpg_file} {release_file}", shell=True, check=True)
