@@ -266,7 +266,7 @@ class Tweak:
 
         content = template.render(
             tint_color = RepoSettings.tint,
-            repo_url = RepoSettings.cname,
+            repo_url = RepoSettings.get_full_domain(),
             tweak = self.to_dictionary(),
             full_description = markdown,
             aurixa_version = RepoSettings.aurixa_version,
