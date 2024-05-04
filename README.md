@@ -6,6 +6,7 @@ A heavily Silica inspired tool to make repos for your iOS packages.
 - inside, create a folder for every package you have
 - place the files you want like specified in the file "packages" file structure below (as specified, the required files will be created when you run the program anyways and the icons/banners/screenshots are optional, you only need to provide some debs.)
 - Run the main file (python src/main.py) and follow the instructions
+- Once you're all done, simply upload the "www" folder somewhere (or follow the "Github Pages" instructions below) and you're all good.
 
 # File structures
 ### Whole repo
@@ -56,10 +57,14 @@ packages
 - set your git name by running `git config --global user.name "YOUR NAME"`
 - set your git EMAIL by running `git config --global user.name "YOUR EMAIL@example.com"`
 - Open github in your browser & create a new repo
+- Open its "Settings" page & go to the "Pages" tab on the left
+- Under "branch", set the branch to "main" and the path to "/ (root)" which should be the default
+- Go back to your repo's index
 - Copy its url (ending by .git) using the big green "Code" button
-- If not already setup, run the setup, otherwise paste that url between quotes in the repo/settings.json file at the "git_repo" key (eg: `"git_repo": None,` to `"git_repo": "https://github.com/Nixuge/cydia-repo.git",`)
+- If not already setup, run the setup & use that url when it asks you about a git repo, otherwise paste that url between quotes in the repo/settings.json file at the "git_repo" key (eg: replace `"git_repo": None,` to `"git_repo": "https://github.com/Nixuge/cydia-repo.git",`)
 - Should be all good. If you have issues, make sure you're logged in to github on your pc (using the `gh` command), that you have your git name/email set (check google)
 
+Note that you can also use your personal domain. For that, it should be in the same tab as step 6, under "Custom domain". Everything depends on your provider, but you can easily find tutorials about that online/dm me for help about it.
 
 ## Why not Silica?
 While Silica itself works fine from an user perspective (w some rough edges but it's fine), its code structure is pretty horrible.
