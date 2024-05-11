@@ -2,6 +2,7 @@
 A heavily Silica inspired tool to make repos for your iOS packages.
 
 # Usage
+- Install the latest Python version (if possible at least 3.11+)
 - Create a "packages" folder in repo/ if it's not already there
 - inside, create a folder for every package you have
 - place the files you want like specified in the file "packages" file structure below (as specified, the required files will be created when you run the program anyways and the icons/banners/screenshots are optional, you only need to provide some debs.)
@@ -77,9 +78,8 @@ There are also some limitations (the biggest one for me is that you can't have m
 For now most assets under repo/styles are, altho modified, from Silica.
 
 ## TODOs
-- Sign Release with gpg
 - Silica-like api/ folder
-- native/help depiction
+- help native depiction
 - way to add custom depictions yourself
 - allow changing more repo settings (version, architectures (of which if possible auto detect all archs from packages & set the necessary ones))
 - Windows (lol)
