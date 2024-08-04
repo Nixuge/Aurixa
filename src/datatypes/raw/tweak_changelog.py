@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 from packaging import version
 from packaging.version import Version
@@ -25,7 +26,28 @@ class TweakChangelog:
             raise Exception(f"Data in changelog json '{self.file_path}' isn't a list.")
 
         data.reverse()
+        self._check_data_order(data)
+
         return data
+
+    def _check_data_order(self, data: list) -> bool:
+        sorted_data = list(data)
+        sorted_data.sort(key = lambda x: x["version"])
+
+        for i, elem in enumerate(data): # data & sorted_data same length
+            v1 = elem["version"]
+            v2 = sorted_data[i]["version"]
+            if v1 != v2:
+                logging.warn(f"Looks like your changelog isn't ordered properly for file '{self.file_path}' !")
+                logging.warn(f"Mismatched version: {v1} (provided)/ {v2} (sorted)")
+                logging.warn(f"If this intended, please open an issue as Aurixa doesn't provide an option to disable this for now.")
+                logging.warn(f"Do you want to stop the program and fix the error? (Y/n)")
+                if input() not in ("n", "no", "non"):
+                    logging.info(f"Stopped.")
+                    exit(1)
+                return True
+
+        return False
 
     def _save_data(self) -> None:
         with open(self.file_path, "w") as changelog_file:
