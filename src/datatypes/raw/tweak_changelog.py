@@ -32,7 +32,7 @@ class TweakChangelog:
 
     def _check_data_order(self, data: list) -> bool:
         sorted_data = list(data)
-        sorted_data.sort(key = lambda x: x["version"])
+        sorted_data.sort(key = lambda x: x["version"], reverse=True)
 
         for i, elem in enumerate(data): # data & sorted_data same length
             v1 = elem["version"]
